@@ -1,0 +1,151 @@
+# GraphCodeBERT Java代码嵌入系统配置文件
+
+# 模型配置
+model:
+  # GraphCodeBERT模型名称
+  name: "microsoft/graphcodebert-base"
+  # 可选: "microsoft/graphcodebert-large"
+  
+  # 最大序列长度
+  max_length: 512
+  
+  # 批处理大小
+  batch_size: 8
+  
+  # 设备设置 (auto/cpu/cuda)
+  device: "auto"
+
+# 向量数据库配置
+vector_database:
+  # 数据库类型: chromadb 或 faiss
+  type: "chromadb"
+  
+  # ChromaDB配置
+  chromadb:
+    collection_name: "code_embeddings"
+    persist_directory: "./chroma_db"
+    
+  # FAISS配置
+  faiss:
+    dimension: 768
+    index_file: "faiss_index.bin"
+    metadata_file: "metadata.json"
+
+# Java代码解析配置
+parser:
+  # 支持的文件扩展名
+  file_extensions:
+    - ".java"
+  
+  # 忽略的目录
+  ignore_directories:
+    - "target"
+    - "build"
+    - ".git"
+    - "node_modules"
+    - "test"
+    - "tests"
+  
+  # 忽略的文件模式
+  ignore_patterns:
+    - "*Test.java"
+    - "*Tests.java"
+    - "Test*.java"
+
+# 代码分析配置
+analysis:
+  # 相似度阈值
+  similarity_threshold: 0.7
+  
+  # 依赖分析最大深度
+  max_dependency_depth: 3
+  
+  # 搜索结果最大数量
+  max_search_results: 50
+  
+  # 是否分析测试代码
+  include_test_code: false
+  
+  # 是否分析注释
+  include_comments: false
+
+# 输出配置
+output:
+  # 默认输出格式: json, csv, xml
+  format: "json"
+  
+  # 输出目录
+  directory: "./output"
+  
+  # 是否包含源代码
+  include_source_code: true
+  
+  # 是否包含嵌入向量
+  include_embeddings: true
+  
+  # 日志级别: DEBUG, INFO, WARNING, ERROR
+  log_level: "INFO"
+  
+  # 日志文件
+  log_file: "code_embedding.log"
+
+# 性能配置
+performance:
+  # 并发处理线程数
+  num_threads: 4
+  
+  # 内存限制 (MB)
+  memory_limit: 8192
+  
+  # 缓存大小
+  cache_size: 1000
+  
+  # 是否启用GPU加速
+  enable_gpu: true
+
+# 搜索配置
+search:
+  # 默认搜索结果数量
+  default_top_k: 10
+  
+  # 搜索算法: cosine, euclidean, manhattan
+  similarity_metric: "cosine"
+  
+  # 是否启用重排序
+  enable_reranking: false
+  
+  # 查询扩展
+  query_expansion: false
+
+# 可视化配置
+visualization:
+  # 是否生成调用图
+  generate_call_graph: true
+  
+  # 图形格式: png, svg, pdf
+  graph_format: "png"
+  
+  # 图形大小
+  graph_size: [12, 8]
+  
+  # 节点颜色配置
+  node_colors:
+    class: "#FF6B6B"
+    method: "#4ECDC4"
+    interface: "#45B7D1"
+    field: "#96CEB4"
+
+# 导出配置
+export:
+  # 支持的导出格式
+  formats:
+    - "json"
+    - "csv"
+    - "xml"
+    - "graphml"
+  
+  # 是否压缩输出
+  compress_output: false
+  
+  # 压缩格式: zip, gz, bz2
+  compression_format: "zip" 
